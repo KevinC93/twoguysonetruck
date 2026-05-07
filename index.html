@@ -3,64 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>Two Guys One Truck | Junk Removal, Moving, Hauling & Deliveries</title>
-  <meta
-    name="description"
-    content="Two Guys One Truck offers junk removal, moving, hauling, deliveries, and decluttering services. Call 438-529-7778 for fast, reliable help."
-  />
+  <meta name="description" content="Two Guys One Truck offers junk removal, moving, hauling, deliveries, and decluttering services. Call 438-529-7778 for fast, reliable help." />
 
   <style>
     :root {
-      --bg: #0f172a;
-      --dark: #020617;
-      --card: #111827;
+      --dark: #111827;
       --text: #f8fafc;
-      --muted: #cbd5e1;
+      --muted: #dbeafe;
       --accent: #f97316;
       --accent-2: #fb923c;
       --accent-3: #facc15;
-      --blue: #38bdf8;
-      --line: rgba(255,255,255,0.14);
+      --line: rgba(255,255,255,0.18);
       --radius: 26px;
       --shadow: 0 30px 90px rgba(0,0,0,0.35);
       --mouse-x: 50%;
       --mouse-y: 50%;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--dark);
+      background: #64748b;
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
-      cursor: default;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    header,
-    main,
-    footer {
+    header, main, footer {
       position: relative;
-      z-index: 2;
+      z-index: 5;
     }
 
     .site-bg {
@@ -70,20 +48,41 @@
       overflow: hidden;
       pointer-events: none;
       background:
-        radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(249,115,22,0.2), transparent 20%),
-        radial-gradient(circle at 20% 10%, rgba(249,115,22,0.22), transparent 32%),
-        radial-gradient(circle at 90% 20%, rgba(251,146,60,0.12), transparent 28%),
-        linear-gradient(135deg, #020617, #0f172a);
+        radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.22), transparent 18%),
+        radial-gradient(circle at 18% 8%, rgba(249,115,22,0.5), transparent 34%),
+        radial-gradient(circle at 82% 18%, rgba(250,204,21,0.23), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(15,23,42,0.56), transparent 48%),
+        linear-gradient(135deg, #94a3b8 0%, #64748b 42%, #475569 100%);
+    }
+
+    .site-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(115deg, transparent 0 44%, rgba(255,255,255,0.08) 44% 45%, transparent 45% 100%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.07) 0 1px, transparent 1px 42px);
+      opacity: 0.36;
+      animation: asphaltMove 12s linear infinite;
+    }
+
+    #truckCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      opacity: 1;
     }
 
     .noise {
       position: fixed;
       inset: 0;
-      z-index: -1;
-      opacity: 0.08;
+      z-index: 2;
+      opacity: 0.05;
       pointer-events: none;
-      background-image:
-        repeating-radial-gradient(circle at 17% 32%, rgba(255,255,255,0.9) 0 0.7px, transparent 0.8px 5px);
+      background-image: repeating-radial-gradient(circle at 17% 32%, rgba(255,255,255,0.9) 0 0.7px, transparent 0.8px 5px);
       mix-blend-mode: overlay;
       animation: noiseMove 0.22s steps(2) infinite;
     }
@@ -92,14 +91,14 @@
       position: fixed;
       left: var(--mouse-x);
       top: var(--mouse-y);
-      width: 380px;
-      height: 380px;
+      width: 420px;
+      height: 420px;
       transform: translate(-50%, -50%);
       border-radius: 999px;
-      z-index: 1;
+      z-index: 3;
       pointer-events: none;
-      background: radial-gradient(circle, rgba(249,115,22,0.18), transparent 65%);
-      filter: blur(8px);
+      background: radial-gradient(circle, rgba(249,115,22,0.22), transparent 65%);
+      filter: blur(10px);
       mix-blend-mode: screen;
     }
 
@@ -109,41 +108,23 @@
       height: 420px;
       border-radius: 999px;
       filter: blur(70px);
-      opacity: 0.42;
+      opacity: 0.5;
       animation: floatOrb 16s ease-in-out infinite alternate;
     }
 
-    .orb-one {
-      left: -120px;
-      top: 90px;
-      background: rgba(249,115,22,0.75);
-    }
-
-    .orb-two {
-      right: -140px;
-      top: 280px;
-      background: rgba(251,146,60,0.45);
-      animation-duration: 20s;
-      animation-delay: -5s;
-    }
-
-    .orb-three {
-      left: 34%;
-      bottom: -180px;
-      background: rgba(59,130,246,0.24);
-      animation-duration: 24s;
-      animation-delay: -9s;
-    }
+    .orb-one { left: -120px; top: 90px; background: rgba(249,115,22,0.85); }
+    .orb-two { right: -140px; top: 280px; background: rgba(251,146,60,0.55); animation-duration: 20s; animation-delay: -5s; }
+    .orb-three { left: 34%; bottom: -180px; background: rgba(56,189,248,0.32); animation-duration: 24s; animation-delay: -9s; }
 
     .grid-glow {
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.11) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.11) 1px, transparent 1px);
       background-size: 72px 72px;
-      mask-image: radial-gradient(circle at center, black, transparent 70%);
-      opacity: 0.22;
+      mask-image: radial-gradient(circle at center, black, transparent 72%);
+      opacity: 0.26;
       animation: gridDrift 24s linear infinite;
     }
 
@@ -151,24 +132,18 @@
       position: absolute;
       left: 50%;
       bottom: -20%;
-      width: 460px;
+      width: 520px;
       height: 85%;
       transform: translateX(-50%) perspective(520px) rotateX(64deg);
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          transparent 0 34px,
-          rgba(249,115,22,0.42) 34px 44px,
-          transparent 44px 82px
-        );
-      opacity: 0.2;
+      background: repeating-linear-gradient(to bottom, transparent 0 34px, rgba(250,204,21,0.58) 34px 44px, transparent 44px 82px);
+      opacity: 0.24;
       animation: roadMove 1.1s linear infinite;
     }
 
-    .speed-lines {
+    .speed-lines, .particles {
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: 0;
       pointer-events: none;
       overflow: hidden;
     }
@@ -177,8 +152,8 @@
       position: absolute;
       left: -30%;
       width: 36vw;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.32), transparent);
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.48), transparent);
       animation: speedLine 3.4s linear infinite;
       opacity: 0;
     }
@@ -189,22 +164,14 @@
     .speed-lines span:nth-child(4) { top: 62%; animation-delay: 1.9s; }
     .speed-lines span:nth-child(5) { top: 78%; animation-delay: 2.6s; }
 
-    .particles {
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
     .particles span {
       position: absolute;
       bottom: -30px;
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      background: rgba(251,146,60,0.9);
-      box-shadow: 0 0 22px rgba(249,115,22,0.8);
+      background: rgba(251,146,60,0.95);
+      box-shadow: 0 0 22px rgba(249,115,22,0.9);
       animation: particleRise linear infinite;
     }
 
@@ -254,9 +221,9 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(2,6,23,0.72);
+      background: rgba(15,23,42,0.76);
       backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.13);
     }
 
     .nav {
@@ -272,9 +239,7 @@
       letter-spacing: -0.045em;
     }
 
-    .logo span {
-      color: var(--accent-2);
-    }
+    .logo span { color: var(--accent-2); }
 
     .nav-links {
       display: flex;
@@ -285,9 +250,7 @@
       font-size: 0.95rem;
     }
 
-    .nav-links a {
-      position: relative;
-    }
+    .nav-links a { position: relative; }
 
     .nav-links a::after {
       content: "";
@@ -300,9 +263,7 @@
       transition: width 0.25s ease;
     }
 
-    .nav-links a:hover::after {
-      width: 100%;
-    }
+    .nav-links a:hover::after { width: 100%; }
 
     .phone-link {
       position: relative;
@@ -316,8 +277,7 @@
       animation: ctaPulse 2.4s ease-in-out infinite;
     }
 
-    .phone-link::before,
-    .button.primary::before {
+    .phone-link::before, .button.primary::before {
       content: "";
       position: absolute;
       top: -50%;
@@ -338,13 +298,14 @@
     }
 
     .eyebrow {
-      color: var(--accent-2);
+      color: var(--accent-3);
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       font-size: 0.78rem;
       animation: slideUp 0.75s ease both;
       animation-delay: 1.35s;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.3);
     }
 
     h1 {
@@ -354,6 +315,7 @@
       letter-spacing: -0.075em;
       animation: slideUp 0.75s ease both;
       animation-delay: 1.45s;
+      text-shadow: 0 6px 34px rgba(0,0,0,0.38);
     }
 
     .gradient-text {
@@ -366,12 +328,13 @@
     }
 
     .lead {
-      color: var(--muted);
+      color: #f8fafc;
       font-size: 1.18rem;
       max-width: 650px;
       margin: 0 0 32px;
       animation: slideUp 0.75s ease both;
       animation-delay: 1.55s;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.35);
     }
 
     .actions {
@@ -392,7 +355,7 @@
       border-radius: 999px;
       font-weight: 950;
       border: 1px solid var(--line);
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .button:hover {
@@ -408,8 +371,9 @@
     }
 
     .button.secondary {
-      background: rgba(255,255,255,0.07);
+      background: rgba(15,23,42,0.58);
       color: var(--text);
+      backdrop-filter: blur(12px);
     }
 
     .hero-visual {
@@ -435,7 +399,7 @@
       border-radius: 32px;
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
-      background: var(--card);
+      background: var(--dark);
       transform-style: preserve-3d;
     }
 
@@ -456,7 +420,7 @@
       bottom: 0;
       width: 45%;
       height: 245px;
-      border: 8px solid #020617;
+      border: 8px solid #111827;
       animation: photoIn 0.8s ease both;
       animation-delay: 1.65s;
     }
@@ -466,7 +430,7 @@
       right: 24px;
       bottom: 24px;
       width: min(290px, 80%);
-      background: rgba(2,6,23,0.82);
+      background: rgba(15,23,42,0.84);
       border: 1px solid var(--line);
       border-radius: 24px;
       padding: 22px;
@@ -494,7 +458,8 @@
       overflow: hidden;
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,0.04);
+      background: rgba(15,23,42,0.5);
+      backdrop-filter: blur(14px);
     }
 
     .marquee {
@@ -505,16 +470,14 @@
 
     .marquee span {
       padding: 0 28px;
-      color: var(--accent-2);
+      color: var(--accent-3);
       font-weight: 950;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       white-space: nowrap;
     }
 
-    section {
-      padding: 70px 0;
-    }
+    section { padding: 70px 0; }
 
     .section-head {
       display: flex;
@@ -529,12 +492,14 @@
       line-height: 0.96;
       letter-spacing: -0.06em;
       margin: 0;
+      text-shadow: 0 6px 30px rgba(0,0,0,0.32);
     }
 
     .section-copy {
-      color: var(--muted);
+      color: #eff6ff;
       max-width: 560px;
       margin: 0;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.28);
     }
 
     .reveal {
@@ -560,8 +525,9 @@
       border-radius: var(--radius);
       overflow: hidden;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,0.06);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      background: rgba(15,23,42,0.68);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
       transform-style: preserve-3d;
       transition: transform 0.2s ease, border-color 0.25s ease;
     }
@@ -573,8 +539,7 @@
       z-index: 2;
       pointer-events: none;
       border-radius: inherit;
-      background:
-        radial-gradient(circle at var(--card-x, 50%) var(--card-y, 50%), rgba(249,115,22,0.48), transparent 26%);
+      background: radial-gradient(circle at var(--card-x, 50%) var(--card-y, 50%), rgba(249,115,22,0.48), transparent 26%);
       opacity: 0;
       transition: opacity 0.2s ease;
     }
@@ -590,12 +555,10 @@
     }
 
     .service-card:hover {
-      border-color: rgba(249,115,22,0.5);
+      border-color: rgba(249,115,22,0.65);
     }
 
-    .service-card:hover::before {
-      opacity: 1;
-    }
+    .service-card:hover::before { opacity: 1; }
 
     .service-card img {
       height: 170px;
@@ -638,9 +601,7 @@
       transform: translateZ(0);
     }
 
-    .gallery-card.tall {
-      min-height: 460px;
-    }
+    .gallery-card.tall { min-height: 460px; }
 
     .gallery-card img {
       width: 100%;
@@ -654,24 +615,6 @@
     .gallery-card:hover img {
       transform: scale(1.1) rotate(1deg);
       filter: saturate(1.25) contrast(1.06);
-    }
-
-    .gallery-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      border: 1px solid transparent;
-      border-radius: inherit;
-      background: linear-gradient(135deg, rgba(249,115,22,0.75), transparent, rgba(56,189,248,0.35)) border-box;
-      mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .gallery-card:hover::before {
-      opacity: 1;
     }
 
     .gallery-card::after {
@@ -709,7 +652,8 @@
 
     .why-card {
       position: relative;
-      background: rgba(255,255,255,0.06);
+      background: rgba(15,23,42,0.68);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--line);
       border-radius: 22px;
       padding: 24px;
@@ -717,25 +661,9 @@
       transition: transform 0.25s ease, border-color 0.25s ease;
     }
 
-    .why-card::after {
-      content: "";
-      position: absolute;
-      inset: auto -30% -40% -30%;
-      height: 80px;
-      background: rgba(249,115,22,0.22);
-      filter: blur(24px);
-      transform: rotate(-8deg);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
     .why-card:hover {
       transform: translateY(-7px);
-      border-color: rgba(249,115,22,0.45);
-    }
-
-    .why-card:hover::after {
-      opacity: 1;
+      border-color: rgba(249,115,22,0.65);
     }
 
     .why-card b {
@@ -750,9 +678,7 @@
       margin-bottom: 6px;
     }
 
-    .why-card span {
-      color: var(--muted);
-    }
+    .why-card span { color: var(--muted); }
 
     .cta {
       position: relative;
@@ -776,8 +702,7 @@
       content: "";
       position: absolute;
       inset: -100%;
-      background:
-        conic-gradient(from 180deg, transparent, rgba(255,255,255,0.42), transparent, rgba(255,255,255,0.22), transparent);
+      background: conic-gradient(from 180deg, transparent, rgba(255,255,255,0.42), transparent, rgba(255,255,255,0.22), transparent);
       animation: spin 8s linear infinite;
       opacity: 0.5;
     }
@@ -811,244 +736,70 @@
 
     footer {
       padding: 32px 0;
-      color: var(--muted);
+      color: #eff6ff;
       border-top: 1px solid var(--line);
+      background: rgba(15,23,42,0.45);
+      backdrop-filter: blur(14px);
     }
 
-    @keyframes floatOrb {
-      from { transform: translate3d(0, 0, 0) scale(1); }
-      to { transform: translate3d(60px, -50px, 0) scale(1.14); }
-    }
-
-    @keyframes gridDrift {
-      from { background-position: 0 0; }
-      to { background-position: 72px 72px; }
-    }
-
-    @keyframes roadMove {
-      from { background-position-y: 0; }
-      to { background-position-y: 82px; }
-    }
-
-    @keyframes noiseMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-2%, 2%); }
-    }
-
-    @keyframes speedLine {
-      0% { transform: translateX(0); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translateX(170vw); opacity: 0; }
-    }
-
-    @keyframes particleRise {
-      from {
-        transform: translateY(0) translateX(0) scale(0.7);
-        opacity: 0;
-      }
-
-      10% {
-        opacity: 0.8;
-      }
-
-      to {
-        transform: translateY(-110vh) translateX(90px) scale(1.25);
-        opacity: 0;
-      }
-    }
-
-    @keyframes loaderOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
-    @keyframes popIn {
-      from {
-        transform: scale(0.82);
-        opacity: 0;
-      }
-
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes gradientShift {
-      from { background-position: 0%; }
-      to { background-position: 300%; }
-    }
-
-    @keyframes ctaPulse {
-      0%, 100% { box-shadow: 0 14px 40px rgba(249,115,22,0.3); }
-      50% { box-shadow: 0 18px 70px rgba(249,115,22,0.58); }
-    }
-
-    @keyframes darkPulse {
-      0%, 100% { box-shadow: 0 14px 34px rgba(2,6,23,0.35); }
-      50% { box-shadow: 0 20px 60px rgba(2,6,23,0.62); }
-    }
-
-    @keyframes shine {
-      0% { left: -90%; }
-      45%, 100% { left: 140%; }
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes photoIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.94);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes heroFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-12px) rotate(-0.5deg); }
-    }
-
-    @keyframes floatingCard {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    @keyframes cardShine {
-      0%, 70% { transform: translateX(-120%); }
-      100% { transform: translateX(120%); }
-    }
+    @keyframes asphaltMove { from { background-position: 0 0; } to { background-position: 220px 120px; } }
+    @keyframes floatOrb { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(60px,-50px,0) scale(1.14); } }
+    @keyframes gridDrift { from { background-position: 0 0; } to { background-position: 72px 72px; } }
+    @keyframes roadMove { from { background-position-y: 0; } to { background-position-y: 82px; } }
+    @keyframes noiseMove { 0% { transform: translate(0,0); } 100% { transform: translate(-2%,2%); } }
+    @keyframes speedLine { 0% { transform: translateX(0); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateX(170vw); opacity: 0; } }
+    @keyframes particleRise { from { transform: translateY(0) translateX(0) scale(0.7); opacity: 0; } 10% { opacity: 0.8; } to { transform: translateY(-110vh) translateX(90px) scale(1.25); opacity: 0; } }
+    @keyframes loaderOut { to { opacity: 0; visibility: hidden; } }
+    @keyframes popIn { from { transform: scale(0.82); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes gradientShift { from { background-position: 0%; } to { background-position: 300%; } }
+    @keyframes ctaPulse { 0%,100% { box-shadow: 0 14px 40px rgba(249,115,22,0.3); } 50% { box-shadow: 0 18px 70px rgba(249,115,22,0.58); } }
+    @keyframes darkPulse { 0%,100% { box-shadow: 0 14px 34px rgba(2,6,23,0.35); } 50% { box-shadow: 0 20px 60px rgba(2,6,23,0.62); } }
+    @keyframes shine { 0% { left: -90%; } 45%,100% { left: 140%; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes photoIn { from { opacity: 0; transform: translateY(30px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes heroFloat { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-12px) rotate(-0.5deg); } }
+    @keyframes floatingCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes cardShine { 0%,70% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
 
     @media (max-width: 1000px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-visual {
-        min-height: 500px;
-      }
-
-      .services {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .gallery {
-        grid-template-columns: 1fr;
-      }
-
-      .why {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .section-head {
-        display: block;
-      }
-
-      .section-copy {
-        margin-top: 14px;
-      }
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 500px; }
+      .services { grid-template-columns: repeat(2, 1fr); }
+      .gallery { grid-template-columns: 1fr; }
+      .why { grid-template-columns: repeat(2, 1fr); }
+      .section-head { display: block; }
+      .section-copy { margin-top: 14px; }
     }
 
     @media (max-width: 640px) {
-      header {
-        position: static;
-      }
-
-      .nav {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .nav-links {
-        flex-wrap: wrap;
-      }
-
-      .phone-link {
-        width: 100%;
-        text-align: center;
-      }
-
-      .hero {
-        padding-top: 48px;
-      }
-
-      .hero-visual {
-        min-height: 430px;
-      }
-
-      .photo-main {
-        inset: 0 0 80px 32px;
-      }
-
-      .photo-small {
-        width: 58%;
-        height: 180px;
-      }
-
-      .floating-card {
-        right: 12px;
-        bottom: 18px;
-      }
-
-      .services,
-      .why {
-        grid-template-columns: 1fr;
-      }
-
-      .actions,
-      .button {
-        width: 100%;
-      }
-
-      .cta {
-        padding: 34px 24px;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .cta .button {
-        width: 100%;
-      }
-
-      .cursor-glow {
-        display: none;
-      }
+      header { position: static; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .nav-links { flex-wrap: wrap; }
+      .phone-link { width: 100%; text-align: center; }
+      .hero { padding-top: 48px; }
+      .hero-visual { min-height: 430px; }
+      .photo-main { inset: 0 0 80px 32px; }
+      .photo-small { width: 58%; height: 180px; }
+      .floating-card { right: 12px; bottom: 18px; }
+      .services, .why { grid-template-columns: 1fr; }
+      .actions, .button { width: 100%; }
+      .cta { padding: 34px 24px; flex-direction: column; align-items: flex-start; }
+      .cta .button { width: 100%; }
+      .cursor-glow { display: none; }
+      #truckCanvas { opacity: 0.82; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
       }
+
+      #truckCanvas { display: none; }
     }
   </style>
 </head>
@@ -1066,29 +817,19 @@
     <div class="road-lines"></div>
   </div>
 
-  <div class="noise" aria-hidden="true"></div>
-  <div class="cursor-glow" aria-hidden="true"></div>
-
   <div class="speed-lines" aria-hidden="true">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span><span></span><span></span>
   </div>
 
   <div class="particles" aria-hidden="true">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
   </div>
+
+  <canvas id="truckCanvas" aria-hidden="true"></canvas>
+
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
 
   <header>
     <div class="container nav">
@@ -1126,17 +867,11 @@
 
       <div class="hero-visual" aria-label="Truck and moving service photos">
         <div class="hero-photo photo-main">
-          <img
-            src="https://images.unsplash.com/photo-1604014238170-4def1e4e6fcf?auto=format&fit=crop&w=1200&q=85"
-            alt="Moving boxes and home moving setup"
-          />
+          <img src="https://images.unsplash.com/photo-1604014238170-4def1e4e6fcf?auto=format&fit=crop&w=1200&q=85" alt="Moving boxes and home moving setup" />
         </div>
 
         <div class="hero-photo photo-small">
-          <img
-            src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=85"
-            alt="Truck and logistics service"
-          />
+          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=85" alt="Truck and logistics service" />
         </div>
 
         <div class="floating-card">
@@ -1148,18 +883,8 @@
 
     <div class="marquee-wrap" aria-hidden="true">
       <div class="marquee">
-        <span>Junk Removal</span>
-        <span>Moving Help</span>
-        <span>Hauling</span>
-        <span>Deliveries</span>
-        <span>Decluttering</span>
-        <span>Call 438-529-7778</span>
-        <span>Junk Removal</span>
-        <span>Moving Help</span>
-        <span>Hauling</span>
-        <span>Deliveries</span>
-        <span>Decluttering</span>
-        <span>Call 438-529-7778</span>
+        <span>Junk Removal</span><span>Moving Help</span><span>Hauling</span><span>Deliveries</span><span>Decluttering</span><span>Call 438-529-7778</span>
+        <span>Junk Removal</span><span>Moving Help</span><span>Hauling</span><span>Deliveries</span><span>Decluttering</span><span>Call 438-529-7778</span>
       </div>
     </div>
 
@@ -1176,10 +901,7 @@
 
       <div class="services">
         <article class="service-card tilt-card">
-          <img
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=85"
-            alt="Junk removal and cleanup"
-          />
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=85" alt="Junk removal and cleanup" />
           <div class="service-content">
             <strong>Junk Removal</strong>
             <span>Furniture, clutter, garage items, renovation debris, and unwanted junk.</span>
@@ -1187,10 +909,7 @@
         </article>
 
         <article class="service-card tilt-card">
-          <img
-            src="https://images.unsplash.com/photo-1600518464441-9306b00c4de9?auto=format&fit=crop&w=800&q=85"
-            alt="Moving boxes into a new home"
-          />
+          <img src="https://images.unsplash.com/photo-1600518464441-9306b00c4de9?auto=format&fit=crop&w=800&q=85" alt="Moving boxes into a new home" />
           <div class="service-content">
             <strong>Moving</strong>
             <span>Small moves, apartment moves, student moves, and extra hands.</span>
@@ -1198,10 +917,7 @@
         </article>
 
         <article class="service-card tilt-card">
-          <img
-            src="https://images.unsplash.com/photo-1586528116493-a029325540fa?auto=format&fit=crop&w=800&q=85"
-            alt="Hauling truck service"
-          />
+          <img src="https://images.unsplash.com/photo-1586528116493-a029325540fa?auto=format&fit=crop&w=800&q=85" alt="Hauling truck service" />
           <div class="service-content">
             <strong>Hauling</strong>
             <span>Large items, heavy loads, bulky furniture, and truck-based transport.</span>
@@ -1209,10 +925,7 @@
         </article>
 
         <article class="service-card tilt-card">
-          <img
-            src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?auto=format&fit=crop&w=800&q=85"
-            alt="Delivery boxes and transportation"
-          />
+          <img src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?auto=format&fit=crop&w=800&q=85" alt="Delivery boxes and transportation" />
           <div class="service-content">
             <strong>Deliveries</strong>
             <span>Pickup and delivery for furniture, appliances, marketplace buys, and more.</span>
@@ -1220,10 +933,7 @@
         </article>
 
         <article class="service-card tilt-card">
-          <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=85"
-            alt="Clean decluttered home interior"
-          />
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=85" alt="Clean decluttered home interior" />
           <div class="service-content">
             <strong>Decluttering</strong>
             <span>Basements, storage spaces, rooms, garages, and property cleanouts.</span>
@@ -1245,10 +955,7 @@
 
       <div class="gallery">
         <article class="gallery-card tall">
-          <img
-            src="https://images.unsplash.com/photo-1604014238063-25a6c92f980c?auto=format&fit=crop&w=1000&q=85"
-            alt="Packed moving boxes in a room"
-          />
+          <img src="https://images.unsplash.com/photo-1604014238063-25a6c92f980c?auto=format&fit=crop&w=1000&q=85" alt="Packed moving boxes in a room" />
           <div class="gallery-label">
             <strong>Moving help without the headache</strong>
             <span>Boxes, furniture, loading, and transport.</span>
@@ -1256,10 +963,7 @@
         </article>
 
         <article class="gallery-card">
-          <img
-            src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?auto=format&fit=crop&w=900&q=85"
-            alt="Organized storage and decluttering"
-          />
+          <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?auto=format&fit=crop&w=900&q=85" alt="Organized storage and decluttering" />
           <div class="gallery-label">
             <strong>Declutter the space</strong>
             <span>We help clear the stuff that slows you down.</span>
@@ -1267,10 +971,7 @@
         </article>
 
         <article class="gallery-card tall">
-          <img
-            src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=1000&q=85"
-            alt="Delivery and hauling truck"
-          />
+          <img src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=1000&q=85" alt="Delivery and hauling truck" />
           <div class="gallery-label">
             <strong>Truck-ready hauling</strong>
             <span>For pickups, drop-offs, and heavy items.</span>
@@ -1341,31 +1042,18 @@
     const root = document.documentElement;
 
     window.addEventListener("pointermove", (event) => {
-      const x = `${event.clientX}px`;
-      const y = `${event.clientY}px`;
-
-      root.style.setProperty("--mouse-x", x);
-      root.style.setProperty("--mouse-y", y);
+      root.style.setProperty("--mouse-x", `${event.clientX}px`);
+      root.style.setProperty("--mouse-y", `${event.clientY}px`);
     });
 
     const revealElements = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.18 });
 
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      {
-        threshold: 0.18
-      }
-    );
-
-    revealElements.forEach((element) => {
-      revealObserver.observe(element);
-    });
+    revealElements.forEach((element) => revealObserver.observe(element));
 
     const tiltCards = document.querySelectorAll(".tilt-card");
 
@@ -1374,7 +1062,6 @@
         const rect = card.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
-
         const rotateX = ((y / rect.height) - 0.5) * -10;
         const rotateY = ((x / rect.width) - 0.5) * 10;
 
@@ -1387,6 +1074,394 @@
         card.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
       });
     });
+
+    const truckCanvas = document.getElementById("truckCanvas");
+    const truckCtx = truckCanvas.getContext("2d");
+
+    let truckDpr = Math.min(window.devicePixelRatio || 1, 2);
+    let truckWidth = 0;
+    let truckHeight = 0;
+    let frame = 0;
+    let route = [];
+    let routeIndex = 0;
+    let animationStarted = false;
+
+    const tireMarks = [];
+
+    const truck = {
+      x: 0,
+      y: 0,
+      angle: 0,
+      speed: 2.4,
+      wheelSpin: 0,
+      scale: 0.95
+    };
+
+    function randomBetween(min, max) {
+      return min + Math.random() * (max - min);
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function resizeTruckCanvas() {
+      truckDpr = Math.min(window.devicePixelRatio || 1, 2);
+      truckWidth = window.innerWidth;
+      truckHeight = window.innerHeight;
+
+      truckCanvas.width = Math.floor(truckWidth * truckDpr);
+      truckCanvas.height = Math.floor(truckHeight * truckDpr);
+      truckCanvas.style.width = `${truckWidth}px`;
+      truckCanvas.style.height = `${truckHeight}px`;
+
+      truckCtx.setTransform(truckDpr, 0, 0, truckDpr, 0, 0);
+
+      buildRoute(true);
+    }
+
+    function buildRoute(resetTruck) {
+      const margin = 220;
+      const safeTop = 110;
+      const safeBottom = Math.max(safeTop + 120, truckHeight - 110);
+      const safeLeft = 90;
+      const safeRight = Math.max(safeLeft + 120, truckWidth - 90);
+
+      const side = Math.floor(Math.random() * 4);
+      let start;
+      let end;
+
+      if (side === 0) {
+        start = { x: -margin, y: randomBetween(safeTop, safeBottom) };
+        end = { x: truckWidth + margin, y: randomBetween(safeTop, safeBottom) };
+      } else if (side === 1) {
+        start = { x: truckWidth + margin, y: randomBetween(safeTop, safeBottom) };
+        end = { x: -margin, y: randomBetween(safeTop, safeBottom) };
+      } else if (side === 2) {
+        start = { x: randomBetween(safeLeft, safeRight), y: -margin };
+        end = { x: randomBetween(safeLeft, safeRight), y: truckHeight + margin };
+      } else {
+        start = { x: randomBetween(safeLeft, safeRight), y: truckHeight + margin };
+        end = { x: randomBetween(safeLeft, safeRight), y: -margin };
+      }
+
+      route = [start];
+
+      for (let i = 1; i <= 5; i++) {
+        const t = i / 6;
+        route.push({
+          x: clamp(start.x + (end.x - start.x) * t + randomBetween(-210, 210), -margin, truckWidth + margin),
+          y: clamp(start.y + (end.y - start.y) * t + randomBetween(-135, 135), -margin, truckHeight + margin)
+        });
+      }
+
+      route.push(end);
+      routeIndex = 0;
+
+      if (resetTruck) {
+        truck.x = start.x;
+        truck.y = start.y;
+        truck.angle = Math.atan2(route[1].y - start.y, route[1].x - start.x);
+        truck.speed = randomBetween(2.15, 2.75);
+        tireMarks.length = 0;
+      }
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    function drawWheel(ctx, x, y, radius) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(truck.wheelSpin);
+
+      ctx.fillStyle = "#030712";
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#111827";
+      ctx.beginPath();
+      ctx.arc(0, 0, radius - 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = "#e5e7eb";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(0, 0, radius - 7, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.strokeStyle = "rgba(255,255,255,0.9)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(-(radius - 7), 0);
+      ctx.lineTo(radius - 7, 0);
+      ctx.moveTo(0, -(radius - 7));
+      ctx.lineTo(0, radius - 7);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    function drawWhiteBoxTruck(ctx) {
+      ctx.save();
+
+      ctx.fillStyle = "rgba(0,0,0,0.36)";
+      ctx.beginPath();
+      ctx.ellipse(-5, 43, 136, 34, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      const cargoGradient = ctx.createLinearGradient(-116, -60, 40, 50);
+      cargoGradient.addColorStop(0, "#ffffff");
+      cargoGradient.addColorStop(0.35, "#f8fafc");
+      cargoGradient.addColorStop(0.7, "#e2e8f0");
+      cargoGradient.addColorStop(1, "#94a3b8");
+
+      ctx.fillStyle = cargoGradient;
+      roundRect(ctx, -116, -60, 150, 98, 8);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(15,23,42,0.45)";
+      ctx.lineWidth = 2.4;
+      roundRect(ctx, -116, -60, 150, 98, 8);
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(255,255,255,0.62)";
+      roundRect(ctx, -106, -50, 130, 22, 4);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(15,23,42,0.24)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(-88, -54);
+      ctx.lineTo(-88, 34);
+      ctx.moveTo(-56, -54);
+      ctx.lineTo(-56, 34);
+      ctx.moveTo(-24, -54);
+      ctx.lineTo(-24, 34);
+      ctx.moveTo(8, -54);
+      ctx.lineTo(8, 34);
+      ctx.moveTo(-110, 16);
+      ctx.lineTo(28, 16);
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(15,23,42,0.88)";
+      ctx.font = "900 11px Arial";
+      ctx.fillText("TWO GUYS", -90, -5);
+      ctx.fillText("ONE TRUCK", -92, 10);
+
+      ctx.fillStyle = "rgba(249,115,22,0.95)";
+      roundRect(ctx, -100, 21, 112, 9, 3);
+      ctx.fill();
+
+      const cabGradient = ctx.createLinearGradient(34, -50, 118, 44);
+      cabGradient.addColorStop(0, "#ffffff");
+      cabGradient.addColorStop(0.4, "#f8fafc");
+      cabGradient.addColorStop(0.76, "#dbeafe");
+      cabGradient.addColorStop(1, "#94a3b8");
+
+      ctx.fillStyle = cabGradient;
+      ctx.beginPath();
+      ctx.moveTo(34, -44);
+      ctx.lineTo(74, -44);
+      ctx.quadraticCurveTo(102, -38, 114, -11);
+      ctx.lineTo(122, 37);
+      ctx.lineTo(34, 37);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(15,23,42,0.52)";
+      ctx.lineWidth = 2.4;
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(15,23,42,0.9)";
+      ctx.beginPath();
+      ctx.moveTo(64, -34);
+      ctx.lineTo(81, -32);
+      ctx.quadraticCurveTo(97, -25, 103, -9);
+      ctx.lineTo(68, -9);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = "rgba(56,189,248,0.72)";
+      roundRect(ctx, 43, -34, 19, 23, 3);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(15,23,42,0.38)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(39, -6);
+      ctx.lineTo(115, -6);
+      ctx.stroke();
+
+      ctx.fillStyle = "#111827";
+      roundRect(ctx, 109, 20, 25, 14, 4);
+      ctx.fill();
+
+      ctx.fillStyle = "#facc15";
+      ctx.beginPath();
+      ctx.arc(119, -9, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#fb923c";
+      ctx.beginPath();
+      ctx.arc(118, 7, 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      const beam = ctx.createLinearGradient(116, -8, 260, -8);
+      beam.addColorStop(0, "rgba(250,204,21,0.38)");
+      beam.addColorStop(1, "rgba(250,204,21,0)");
+      ctx.fillStyle = beam;
+      ctx.beginPath();
+      ctx.moveTo(116, -17);
+      ctx.lineTo(270, -58);
+      ctx.lineTo(270, 44);
+      ctx.lineTo(116, 6);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = "rgba(15,23,42,0.66)";
+      roundRect(ctx, 24, 34, 100, 10, 3);
+      ctx.fill();
+
+      drawWheel(ctx, -82, 44, 17);
+      drawWheel(ctx, -20, 44, 17);
+      drawWheel(ctx, 76, 44, 18);
+
+      ctx.fillStyle = "rgba(255,255,255,0.82)";
+      ctx.fillRect(-110, -56, 8, 90);
+
+      ctx.restore();
+    }
+
+    function addTireMarks() {
+      const wheels = [
+        { x: -82, y: 49 },
+        { x: -20, y: 49 },
+        { x: 76, y: 49 }
+      ];
+
+      const cos = Math.cos(truck.angle);
+      const sin = Math.sin(truck.angle);
+
+      wheels.forEach((wheel) => {
+        tireMarks.push({
+          x: truck.x + wheel.x * cos - wheel.y * sin,
+          y: truck.y + wheel.x * sin + wheel.y * cos,
+          angle: truck.angle,
+          life: 1,
+          width: randomBetween(5.5, 8.5),
+          length: randomBetween(14, 23)
+        });
+      });
+
+      if (tireMarks.length > 900) {
+        tireMarks.splice(0, tireMarks.length - 900);
+      }
+    }
+
+    function drawTireMarks(ctx) {
+      for (let i = tireMarks.length - 1; i >= 0; i--) {
+        const mark = tireMarks[i];
+
+        mark.life -= 0.0025;
+
+        if (mark.life <= 0) {
+          tireMarks.splice(i, 1);
+          continue;
+        }
+
+        ctx.strokeStyle = `rgba(0,0,0,${mark.life * 0.62})`;
+        ctx.lineWidth = mark.width;
+        ctx.lineCap = "round";
+
+        ctx.beginPath();
+        ctx.moveTo(mark.x, mark.y);
+        ctx.lineTo(
+          mark.x + Math.cos(mark.angle) * mark.length,
+          mark.y + Math.sin(mark.angle) * mark.length
+        );
+        ctx.stroke();
+      }
+    }
+
+    function updateTruck() {
+      if (!route.length) return;
+
+      const target = route[Math.min(routeIndex + 1, route.length - 1)];
+      const dx = target.x - truck.x;
+      const dy = target.y - truck.y;
+      const distance = Math.hypot(dx, dy);
+
+      if (distance < 80) {
+        routeIndex++;
+
+        if (routeIndex >= route.length - 1) {
+          buildRoute(true);
+          return;
+        }
+      }
+
+      const nextTarget = route[Math.min(routeIndex + 1, route.length - 1)];
+      const targetAngle = Math.atan2(nextTarget.y - truck.y, nextTarget.x - truck.x);
+
+      let angleDiff = targetAngle - truck.angle;
+      while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
+      while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
+
+      const maxTurn = 0.035;
+      const turnAmount = clamp(angleDiff * 0.045, -maxTurn, maxTurn);
+      truck.angle += turnAmount;
+
+      const turnSharpness = Math.abs(angleDiff);
+      const idealSpeed = turnSharpness > 0.8 ? 1.55 : turnSharpness > 0.42 ? 2.15 : 3.05;
+
+      truck.speed += (idealSpeed - truck.speed) * 0.028;
+      truck.angle += Math.sin(frame * 0.018) * 0.0018;
+
+      truck.x += Math.cos(truck.angle) * truck.speed;
+      truck.y += Math.sin(truck.angle) * truck.speed;
+
+      truck.wheelSpin += truck.speed * 0.24;
+
+      addTireMarks();
+      frame++;
+    }
+
+    function drawTruckScene() {
+      truckCtx.clearRect(0, 0, truckWidth, truckHeight);
+
+      drawTireMarks(truckCtx);
+      updateTruck();
+
+      truckCtx.save();
+      truckCtx.translate(truck.x, truck.y);
+      truckCtx.rotate(truck.angle);
+      truckCtx.scale(truck.scale, truck.scale);
+      drawWhiteBoxTruck(truckCtx);
+      truckCtx.restore();
+
+      requestAnimationFrame(drawTruckScene);
+    }
+
+    resizeTruckCanvas();
+    window.addEventListener("resize", resizeTruckCanvas);
+
+    if (!animationStarted) {
+      animationStarted = true;
+      drawTruckScene();
+    }
   </script>
 </body>
 </html>
