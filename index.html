@@ -684,7 +684,7 @@
       position: relative;
       background:
         linear-gradient(135deg, rgba(249,115,22,0.95), rgba(251,146,60,0.95)),
-        url("https://images.unsplash.com/photo-1604014237744-48f1217c25f9?auto=format&fit=crop&w=1600&q=80");
+        url("https://i.postimg.cc/gjpNdYN5/20260506-084610.jpg");
       background-size: cover;
       background-position: center;
       color: #111827;
@@ -763,6 +763,148 @@
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes cardShine { 0%,70% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
 
+
+    .photo-carousel {
+      padding: 28px 0 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel-shell {
+      position: relative;
+      border-radius: 34px;
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,0.5);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .carousel-viewport {
+      position: relative;
+      overflow: hidden;
+      border-radius: inherit;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      position: relative;
+      flex: 0 0 100%;
+      height: clamp(280px, 42vw, 520px);
+      overflow: hidden;
+      background: #111827;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease, filter 0.8s ease;
+    }
+
+    .carousel-slide.active img {
+      transform: scale(1.04);
+      filter: saturate(1.12) contrast(1.04);
+    }
+
+    .carousel-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(2,6,23,0.74), transparent 62%),
+        linear-gradient(90deg, rgba(2,6,23,0.42), transparent 45%);
+      pointer-events: none;
+    }
+
+    .carousel-caption {
+      position: absolute;
+      left: clamp(22px, 5vw, 54px);
+      right: clamp(22px, 5vw, 54px);
+      bottom: clamp(22px, 5vw, 48px);
+      z-index: 2;
+      font-size: clamp(1.8rem, 4vw, 4rem);
+      line-height: 0.95;
+      font-weight: 950;
+      letter-spacing: -0.06em;
+      text-shadow: 0 3px 22px rgba(0,0,0,0.55);
+    }
+
+    .carousel-subcaption {
+      display: block;
+      margin-top: 10px;
+      max-width: 680px;
+      font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+      line-height: 1.45;
+      font-weight: 800;
+      letter-spacing: 0;
+      color: var(--muted);
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      z-index: 4;
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 999px;
+      background: rgba(15,23,42,0.72);
+      color: white;
+      font-size: 2rem;
+      line-height: 1;
+      cursor: pointer;
+      transform: translateY(-50%);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 16px 38px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .carousel-button:hover {
+      transform: translateY(-50%) scale(1.08);
+      background: rgba(249,115,22,0.9);
+      color: #111827;
+    }
+
+    .carousel-button.prev {
+      left: 18px;
+    }
+
+    .carousel-button.next {
+      right: 18px;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      z-index: 5;
+      display: flex;
+      gap: 8px;
+      transform: translateX(-50%);
+    }
+
+    .carousel-dot {
+      width: 9px;
+      height: 9px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.45);
+      cursor: pointer;
+      transition: width 0.25s ease, background 0.25s ease;
+    }
+
+    .carousel-dot.active {
+      width: 28px;
+      background: var(--accent);
+    }
+
+
     @media (max-width: 1000px) {
       .hero { grid-template-columns: 1fr; }
       .hero-visual { min-height: 500px; }
@@ -789,6 +931,25 @@
       .cta .button { width: 100%; }
       .cursor-glow { display: none; }
       #truckCanvas { opacity: 0.82; }
+
+      .carousel-slide {
+        height: 300px;
+      }
+
+      .carousel-button {
+        width: 44px;
+        height: 44px;
+        font-size: 1.7rem;
+      }
+
+      .carousel-button.prev {
+        left: 10px;
+      }
+
+      .carousel-button.next {
+        right: 10px;
+      }
+
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -867,16 +1028,88 @@
 
       <div class="hero-visual" aria-label="Truck and moving service photos">
         <div class="hero-photo photo-main">
-          <img src="https://images.unsplash.com/photo-1604014238170-4def1e4e6fcf?auto=format&fit=crop&w=1200&q=85" alt="Moving boxes and home moving setup" />
+          <img src="https://i.postimg.cc/cJ6z54bT/20260506-084601.jpg" alt="Two Guys One Truck job photo" />
         </div>
 
         <div class="hero-photo photo-small">
-          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=85" alt="Truck and logistics service" />
+          <img src="https://i.postimg.cc/cLjJz6J0/moving-truck.jpg" alt="Two Guys One Truck moving truck service photo" />
         </div>
 
         <div class="floating-card">
           <strong>5 services</strong>
           <span>Junk removal, moving, hauling, deliveries, and decluttering.</span>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="photo-carousel reveal" aria-label="Two Guys One Truck photo carousel">
+      <div class="container">
+        <div class="carousel-shell">
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="photoCarouselTrack">
+              <article class="carousel-slide active">
+                <img src="https://i.postimg.cc/PxrgHQJ6/received-1487387692886654.jpg" alt="Two Guys One Truck junk removal project photo" />
+                <div class="carousel-caption">
+                  Junk removal
+                  <span class="carousel-subcaption">Fast cleanup for unwanted furniture, clutter, debris, and heavy items.</span>
+                </div>
+              </article>
+
+              <article class="carousel-slide">
+                <img src="https://i.postimg.cc/cLjJz6J0/moving-truck.jpg" alt="Two Guys One Truck moving truck service photo" />
+                <div class="carousel-caption">
+                  Moving service
+                  <span class="carousel-subcaption">Small moves, loading help, apartment moves, and truck-ready transport.</span>
+                </div>
+              </article>
+
+              <article class="carousel-slide">
+                <img src="https://i.postimg.cc/Ss4m09Fw/77x12-wood-hauling-trailer.png" alt="Two Guys One Truck hauling trailer service photo" />
+                <div class="carousel-caption">
+                  Hauling
+                  <span class="carousel-subcaption">Trailer and truck hauling for bulky items, wood, cleanouts, and big loads.</span>
+                </div>
+              </article>
+
+              <article class="carousel-slide">
+                <img src="https://i.postimg.cc/j2Vg3Hph/packaging-boxes-stacked-pallets-loading-into-shipping-cargo-container-delivery-freight-logistics-368.avif" alt="Two Guys One Truck delivery and logistics service photo" />
+                <div class="carousel-caption">
+                  Deliveries
+                  <span class="carousel-subcaption">Pickup and delivery for furniture, boxed goods, marketplace finds, and freight-style jobs.</span>
+                </div>
+              </article>
+
+              <article class="carousel-slide">
+                <img src="https://i.postimg.cc/rwTcbW1S/20260506-083933.jpg" alt="Two Guys One Truck decluttering project photo" />
+                <div class="carousel-caption">
+                  Decluttering
+                  <span class="carousel-subcaption">Clear garages, rooms, basements, storage areas, and messy spaces.</span>
+                </div>
+              </article>
+
+              <article class="carousel-slide">
+                <img src="https://i.postimg.cc/cJ6z54bT/20260506-084601.jpg" alt="Two Guys One Truck work photo" />
+                <div class="carousel-caption">
+                  Real work
+                  <span class="carousel-subcaption">A visual look at the kind of jobs Two Guys One Truck can handle.</span>
+                </div>
+              </article>
+
+              <article class="carousel-slide">
+                <img src="https://i.postimg.cc/gjpNdYN5/20260506-084610.jpg" alt="Two Guys One Truck completed job photo" />
+                <div class="carousel-caption">
+                  Job done
+                  <span class="carousel-subcaption">Reliable help when you need something moved, hauled, removed, or delivered.</span>
+                </div>
+              </article>
+            </div>
+
+            <button class="carousel-button prev" type="button" aria-label="Previous photo" id="carouselPrev">‹</button>
+            <button class="carousel-button next" type="button" aria-label="Next photo" id="carouselNext">›</button>
+
+            <div class="carousel-dots" id="carouselDots" aria-label="Photo carousel controls"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -901,7 +1134,7 @@
 
       <div class="services">
         <article class="service-card tilt-card">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=85" alt="Junk removal and cleanup" />
+          <img src="https://i.postimg.cc/PxrgHQJ6/received-1487387692886654.jpg" alt="Two Guys One Truck junk removal project photo" />
           <div class="service-content">
             <strong>Junk Removal</strong>
             <span>Furniture, clutter, garage items, renovation debris, and unwanted junk.</span>
@@ -909,7 +1142,7 @@
         </article>
 
         <article class="service-card tilt-card">
-          <img src="https://images.unsplash.com/photo-1600518464441-9306b00c4de9?auto=format&fit=crop&w=800&q=85" alt="Moving boxes into a new home" />
+          <img src="https://i.postimg.cc/cLjJz6J0/moving-truck.jpg" alt="Two Guys One Truck moving truck service photo" />
           <div class="service-content">
             <strong>Moving</strong>
             <span>Small moves, apartment moves, student moves, and extra hands.</span>
@@ -917,7 +1150,7 @@
         </article>
 
         <article class="service-card tilt-card">
-          <img src="https://images.unsplash.com/photo-1586528116493-a029325540fa?auto=format&fit=crop&w=800&q=85" alt="Hauling truck service" />
+          <img src="https://i.postimg.cc/Ss4m09Fw/77x12-wood-hauling-trailer.png" alt="Two Guys One Truck hauling trailer service photo" />
           <div class="service-content">
             <strong>Hauling</strong>
             <span>Large items, heavy loads, bulky furniture, and truck-based transport.</span>
@@ -925,7 +1158,7 @@
         </article>
 
         <article class="service-card tilt-card">
-          <img src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?auto=format&fit=crop&w=800&q=85" alt="Delivery boxes and transportation" />
+          <img src="https://i.postimg.cc/j2Vg3Hph/packaging-boxes-stacked-pallets-loading-into-shipping-cargo-container-delivery-freight-logistics-368.avif" alt="Two Guys One Truck delivery and logistics service photo" />
           <div class="service-content">
             <strong>Deliveries</strong>
             <span>Pickup and delivery for furniture, appliances, marketplace buys, and more.</span>
@@ -933,7 +1166,7 @@
         </article>
 
         <article class="service-card tilt-card">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=85" alt="Clean decluttered home interior" />
+          <img src="https://i.postimg.cc/rwTcbW1S/20260506-083933.jpg" alt="Two Guys One Truck decluttering project photo" />
           <div class="service-content">
             <strong>Decluttering</strong>
             <span>Basements, storage spaces, rooms, garages, and property cleanouts.</span>
@@ -955,7 +1188,7 @@
 
       <div class="gallery">
         <article class="gallery-card tall">
-          <img src="https://images.unsplash.com/photo-1604014238063-25a6c92f980c?auto=format&fit=crop&w=1000&q=85" alt="Packed moving boxes in a room" />
+          <img src="https://i.postimg.cc/cJ6z54bT/20260506-084601.jpg" alt="Two Guys One Truck work photo" />
           <div class="gallery-label">
             <strong>Moving help without the headache</strong>
             <span>Boxes, furniture, loading, and transport.</span>
@@ -963,7 +1196,7 @@
         </article>
 
         <article class="gallery-card">
-          <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?auto=format&fit=crop&w=900&q=85" alt="Organized storage and decluttering" />
+          <img src="https://i.postimg.cc/gjpNdYN5/20260506-084610.jpg" alt="Two Guys One Truck completed job photo" />
           <div class="gallery-label">
             <strong>Declutter the space</strong>
             <span>We help clear the stuff that slows you down.</span>
@@ -971,7 +1204,7 @@
         </article>
 
         <article class="gallery-card tall">
-          <img src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=1000&q=85" alt="Delivery and hauling truck" />
+          <img src="https://i.postimg.cc/Ss4m09Fw/77x12-wood-hauling-trailer.png" alt="Two Guys One Truck hauling and transport photo" />
           <div class="gallery-label">
             <strong>Truck-ready hauling</strong>
             <span>For pickups, drop-offs, and heavy items.</span>
@@ -1075,6 +1308,72 @@
       });
     });
 
+
+    const carouselTrack = document.getElementById("photoCarouselTrack");
+    const carouselSlides = carouselTrack ? Array.from(carouselTrack.querySelectorAll(".carousel-slide")) : [];
+    const carouselPrev = document.getElementById("carouselPrev");
+    const carouselNext = document.getElementById("carouselNext");
+    const carouselDots = document.getElementById("carouselDots");
+    let carouselIndex = 0;
+    let carouselTimer = null;
+
+    function renderCarousel() {
+      if (!carouselTrack || !carouselSlides.length) return;
+
+      carouselTrack.style.transform = `translateX(-${carouselIndex * 100}%)`;
+
+      carouselSlides.forEach((slide, index) => {
+        slide.classList.toggle("active", index === carouselIndex);
+      });
+
+      if (carouselDots) {
+        Array.from(carouselDots.children).forEach((dot, index) => {
+          dot.classList.toggle("active", index === carouselIndex);
+        });
+      }
+    }
+
+    function goToCarouselSlide(index) {
+      if (!carouselSlides.length) return;
+      carouselIndex = (index + carouselSlides.length) % carouselSlides.length;
+      renderCarousel();
+    }
+
+    function restartCarouselTimer() {
+      if (carouselTimer) clearInterval(carouselTimer);
+
+      carouselTimer = setInterval(() => {
+        goToCarouselSlide(carouselIndex + 1);
+      }, 4200);
+    }
+
+    if (carouselTrack && carouselSlides.length) {
+      carouselSlides.forEach((_, index) => {
+        const dot = document.createElement("button");
+        dot.className = "carousel-dot";
+        dot.type = "button";
+        dot.setAttribute("aria-label", `Go to photo ${index + 1}`);
+        dot.addEventListener("click", () => {
+          goToCarouselSlide(index);
+          restartCarouselTimer();
+        });
+        carouselDots.appendChild(dot);
+      });
+
+      carouselPrev.addEventListener("click", () => {
+        goToCarouselSlide(carouselIndex - 1);
+        restartCarouselTimer();
+      });
+
+      carouselNext.addEventListener("click", () => {
+        goToCarouselSlide(carouselIndex + 1);
+        restartCarouselTimer();
+      });
+
+      renderCarousel();
+      restartCarouselTimer();
+    }
+
     const truckCanvas = document.getElementById("truckCanvas");
     const truckCtx = truckCanvas.getContext("2d");
 
@@ -1087,6 +1386,7 @@
     let animationStarted = false;
 
     const tireMarks = [];
+    const smokeParticles = [];
 
     const truck = {
       x: 0,
@@ -1094,8 +1394,18 @@
       angle: 0,
       speed: 2.4,
       wheelSpin: 0,
-      scale: 0.95
+      scale: 0.95,
+      previousTires: null,
+      burnoutUntil: 0,
+      burnoutDirection: 1,
+      lastBurnoutAt: 0,
+      nextBurnoutDelay: 4200
     };
+
+    const tireLayout = [
+      { id: "rear", x: -82, y: 49, radius: 17, width: 8.2 },
+      { id: "front", x: 76, y: 49, radius: 18, width: 6.4 }
+    ];
 
     function randomBetween(min, max) {
       return min + Math.random() * (max - min);
@@ -1150,8 +1460,8 @@
       for (let i = 1; i <= 5; i++) {
         const t = i / 6;
         route.push({
-          x: clamp(start.x + (end.x - start.x) * t + randomBetween(-210, 210), -margin, truckWidth + margin),
-          y: clamp(start.y + (end.y - start.y) * t + randomBetween(-135, 135), -margin, truckHeight + margin)
+          x: clamp(start.x + (end.x - start.x) * t + randomBetween(-230, 230), -margin, truckWidth + margin),
+          y: clamp(start.y + (end.y - start.y) * t + randomBetween(-155, 155), -margin, truckHeight + margin)
         });
       }
 
@@ -1163,8 +1473,46 @@
         truck.y = start.y;
         truck.angle = Math.atan2(route[1].y - start.y, route[1].x - start.x);
         truck.speed = randomBetween(2.15, 2.75);
+        truck.previousTires = null;
+        truck.burnoutUntil = 0;
         tireMarks.length = 0;
+        smokeParticles.length = 0;
       }
+    }
+
+    function startBurnout(now) {
+      truck.burnoutUntil = now + 2000;
+      truck.burnoutDirection = Math.random() > 0.5 ? 1 : -1;
+      truck.lastBurnoutAt = now;
+      truck.nextBurnoutDelay = randomBetween(6500, 11500);
+      truck.previousTires = null;
+    }
+
+    function maybeStartBurnout(now) {
+      if (truck.burnoutUntil > now) return;
+      if (now - truck.lastBurnoutAt < truck.nextBurnoutDelay) return;
+
+      const isOnScreen =
+        truck.x > 170 &&
+        truck.x < truckWidth - 170 &&
+        truck.y > 130 &&
+        truck.y < truckHeight - 130;
+
+      if (isOnScreen && Math.random() < 0.018) {
+        startBurnout(now);
+      }
+    }
+
+    function getTireWorldPositions() {
+      const cos = Math.cos(truck.angle);
+      const sin = Math.sin(truck.angle);
+
+      return tireLayout.map((tire) => ({
+        id: tire.id,
+        x: truck.x + tire.x * cos - tire.y * sin,
+        y: truck.y + tire.x * sin + tire.y * cos,
+        width: tire.width
+      }));
     }
 
     function roundRect(ctx, x, y, w, h, r) {
@@ -1214,13 +1562,46 @@
       ctx.restore();
     }
 
-    function drawWhiteBoxTruck(ctx) {
+    function fitText(ctx, text, maxWidth, startingSize, fontWeight = 900) {
+      let size = startingSize;
+
+      do {
+        ctx.font = `${fontWeight} ${size}px Arial`;
+        if (ctx.measureText(text).width <= maxWidth) break;
+        size -= 1;
+      } while (size > 7);
+
+      return size;
+    }
+
+    function drawTruckText(ctx) {
       ctx.save();
 
-      ctx.fillStyle = "rgba(0,0,0,0.36)";
-      ctx.beginPath();
-      ctx.ellipse(-5, 43, 136, 34, 0, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(15,23,42,0.9)";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+
+      fitText(ctx, "TWO GUYS", 104, 15, 900);
+      ctx.fillText("TWO GUYS", -101, -48);
+
+      fitText(ctx, "ONE TRUCK", 112, 15, 900);
+      ctx.fillText("ONE TRUCK", -101, -31);
+
+      ctx.fillStyle = "rgba(249,115,22,0.98)";
+      roundRect(ctx, -103, -8, 126, 20, 5);
       ctx.fill();
+
+      ctx.fillStyle = "#111827";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      fitText(ctx, "438-529-7778", 116, 18, 950);
+      ctx.fillText("438-529-7778", -40, 2);
+
+      ctx.restore();
+    }
+
+    function drawWhiteBoxTruck(ctx) {
+      ctx.save();
 
       const cargoGradient = ctx.createLinearGradient(-116, -60, 40, 50);
       cargoGradient.addColorStop(0, "#ffffff");
@@ -1256,14 +1637,7 @@
       ctx.lineTo(28, 16);
       ctx.stroke();
 
-      ctx.fillStyle = "rgba(15,23,42,0.88)";
-      ctx.font = "900 11px Arial";
-      ctx.fillText("TWO GUYS", -90, -5);
-      ctx.fillText("ONE TRUCK", -92, 10);
-
-      ctx.fillStyle = "rgba(249,115,22,0.95)";
-      roundRect(ctx, -100, 21, 112, 9, 3);
-      ctx.fill();
+      drawTruckText(ctx);
 
       const cabGradient = ctx.createLinearGradient(34, -50, 118, 44);
       cabGradient.addColorStop(0, "#ffffff");
@@ -1336,7 +1710,6 @@
       ctx.fill();
 
       drawWheel(ctx, -82, 44, 17);
-      drawWheel(ctx, -20, 44, 17);
       drawWheel(ctx, 76, 44, 18);
 
       ctx.fillStyle = "rgba(255,255,255,0.82)";
@@ -1345,29 +1718,80 @@
       ctx.restore();
     }
 
-    function addTireMarks() {
-      const wheels = [
-        { x: -82, y: 49 },
-        { x: -20, y: 49 },
-        { x: 76, y: 49 }
-      ];
+    function spawnBurnoutSmoke() {
+      const tires = getTireWorldPositions();
 
-      const cos = Math.cos(truck.angle);
-      const sin = Math.sin(truck.angle);
-
-      wheels.forEach((wheel) => {
-        tireMarks.push({
-          x: truck.x + wheel.x * cos - wheel.y * sin,
-          y: truck.y + wheel.x * sin + wheel.y * cos,
-          angle: truck.angle,
-          life: 1,
-          width: randomBetween(5.5, 8.5),
-          length: randomBetween(14, 23)
-        });
+      tires.forEach((tire) => {
+        for (let i = 0; i < 2; i++) {
+          smokeParticles.push({
+            x: tire.x + randomBetween(-4, 4),
+            y: tire.y + randomBetween(-4, 4),
+            vx: randomBetween(-0.45, 0.45),
+            vy: randomBetween(-0.95, -0.25),
+            size: randomBetween(12, 28),
+            life: 1
+          });
+        }
       });
 
-      if (tireMarks.length > 900) {
-        tireMarks.splice(0, tireMarks.length - 900);
+      if (smokeParticles.length > 260) {
+        smokeParticles.splice(0, smokeParticles.length - 260);
+      }
+    }
+
+    function drawSmoke(ctx) {
+      for (let i = smokeParticles.length - 1; i >= 0; i--) {
+        const smoke = smokeParticles[i];
+
+        smoke.life -= 0.012;
+        smoke.x += smoke.vx;
+        smoke.y += smoke.vy;
+        smoke.size += 0.28;
+
+        if (smoke.life <= 0) {
+          smokeParticles.splice(i, 1);
+          continue;
+        }
+
+        ctx.fillStyle = `rgba(226,232,240,${smoke.life * 0.32})`;
+        ctx.beginPath();
+        ctx.arc(smoke.x, smoke.y, smoke.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = `rgba(15,23,42,${smoke.life * 0.08})`;
+        ctx.beginPath();
+        ctx.arc(smoke.x + smoke.size * 0.25, smoke.y + smoke.size * 0.1, smoke.size * 0.62, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function updateTrueTireTrails(isBurnout) {
+      const currentTires = getTireWorldPositions();
+
+      if (truck.previousTires) {
+        currentTires.forEach((current) => {
+          const previous = truck.previousTires.find((tire) => tire.id === current.id);
+          if (!previous) return;
+
+          const segmentLength = Math.hypot(current.x - previous.x, current.y - previous.y);
+
+          if (segmentLength > 0.25 && segmentLength < 70) {
+            tireMarks.push({
+              x1: previous.x,
+              y1: previous.y,
+              x2: current.x,
+              y2: current.y,
+              life: isBurnout ? 1.25 : 1,
+              width: isBurnout ? current.width + 4.5 : current.width
+            });
+          }
+        });
+      }
+
+      truck.previousTires = currentTires;
+
+      if (tireMarks.length > 1400) {
+        tireMarks.splice(0, tireMarks.length - 1400);
       }
     }
 
@@ -1375,29 +1799,48 @@
       for (let i = tireMarks.length - 1; i >= 0; i--) {
         const mark = tireMarks[i];
 
-        mark.life -= 0.0025;
+        mark.life -= 0.0024;
 
         if (mark.life <= 0) {
           tireMarks.splice(i, 1);
           continue;
         }
 
-        ctx.strokeStyle = `rgba(0,0,0,${mark.life * 0.62})`;
+        ctx.strokeStyle = `rgba(0,0,0,${Math.min(1, mark.life) * 0.66})`;
         ctx.lineWidth = mark.width;
         ctx.lineCap = "round";
+        ctx.lineJoin = "round";
 
         ctx.beginPath();
-        ctx.moveTo(mark.x, mark.y);
-        ctx.lineTo(
-          mark.x + Math.cos(mark.angle) * mark.length,
-          mark.y + Math.sin(mark.angle) * mark.length
-        );
+        ctx.moveTo(mark.x1, mark.y1);
+        ctx.lineTo(mark.x2, mark.y2);
         ctx.stroke();
       }
     }
 
     function updateTruck() {
       if (!route.length) return;
+
+      const now = performance.now();
+
+      maybeStartBurnout(now);
+
+      const isBurnout = truck.burnoutUntil > now;
+
+      if (isBurnout) {
+        const burnoutProgress = 1 - ((truck.burnoutUntil - now) / 2000);
+        const pulse = Math.sin(burnoutProgress * Math.PI);
+
+        truck.angle += truck.burnoutDirection * 0.055;
+        truck.x += Math.cos(truck.angle) * (0.42 + pulse * 0.42);
+        truck.y += Math.sin(truck.angle) * (0.42 + pulse * 0.42);
+        truck.wheelSpin += 1.35 + pulse * 1.45;
+
+        spawnBurnoutSmoke();
+        updateTrueTireTrails(true);
+        frame++;
+        return;
+      }
 
       const target = route[Math.min(routeIndex + 1, route.length - 1)];
       const dx = target.x - truck.x;
@@ -1420,8 +1863,8 @@
       while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
       while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
 
-      const maxTurn = 0.035;
-      const turnAmount = clamp(angleDiff * 0.045, -maxTurn, maxTurn);
+      const maxTurn = 0.038;
+      const turnAmount = clamp(angleDiff * 0.048, -maxTurn, maxTurn);
       truck.angle += turnAmount;
 
       const turnSharpness = Math.abs(angleDiff);
@@ -1435,7 +1878,7 @@
 
       truck.wheelSpin += truck.speed * 0.24;
 
-      addTireMarks();
+      updateTrueTireTrails(false);
       frame++;
     }
 
@@ -1443,6 +1886,7 @@
       truckCtx.clearRect(0, 0, truckWidth, truckHeight);
 
       drawTireMarks(truckCtx);
+      drawSmoke(truckCtx);
       updateTruck();
 
       truckCtx.save();
